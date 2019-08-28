@@ -1,0 +1,69 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-05-11 22:10:01
+ * @@Function:
+ */
+
+$options  = $this->getOptions();
+$selector = 'alo-content-'.rand(0,999999999);
+$classer = $this->getData('el_class');
+?>
+<div class="box-blog <?php echo esc_attr($classer) ?>">
+    <div class="<?php echo esc_attr($selector) ?>">
+        <div class="blogtabs"><h3 class="title"><?php echo __('Lastest blog', 'alothemes'); ?></h3></div>
+    	<div class="magicpost <?php echo $this->getData('slide') ? 'slider' : 'grid'?>" <?php foreach($options as $key => $value){?>
+                                               data-<?php echo esc_attr($key); ?>  = '<?php echo esc_attr($value); ?>'
+                                       <?php } ?> >
+            <?php 
+                foreach($this->_posts as  $post){
+                    $image = get_the_post_thumbnail($post);
+                    $url   = get_permalink( $post );
+                ?>
+                    <div class='item'>
+                        <?php if($image){ ?>
+                            <div class="post-thumb"><a href="<?php echo esc_url($url) ?>"><?php echo $image ?></a></div>
+                        <?php } ?>
+                        <div class="post-desc">
+                            <h3 class="title-post"><a href="<?php echo esc_url( $url ) ?>"><?php echo $post->post_title ?></a></h3>
+                            <div class="post-meta"><span class="date"><a href="<?php echo esc_url( get_the_permalink($post) ); ?>">
+                                        <?php echo get_the_date( "d M Y", $post->ID )?></a> /</span>
+                            <span class='author'><?php echo __('By:', 'expert'); ?><a href="<?php echo esc_url( get_author_posts_url( $post->post_author ) ); ?>"><?php echo get_the_author_meta("user_nicename", $post->post_author) ?></a> /</span>
+                            <span class='cmt'><a href="<?php echo esc_url( get_comments_link( $post->ID ) ); ?>"><?php echo $post->comment_count; ?> <?php echo __('Comment(s) ', 'expert'); ?></a> /</span>
+                            <span class='view'><?php printf( __( '%s View(s)', 'bigsale' ), $this->getPostViews($post->ID) )?></span></div>
+                        </div>
+                    </div>
+            <?php
+                }
+            ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	(function ($) {
+		var magicpost  = $('.<?php echo $selector ?> .magicpost');
+		if(magicpost.length) $('head').append(magicproduct(magicpost, '.item'));
+    })(jQuery);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

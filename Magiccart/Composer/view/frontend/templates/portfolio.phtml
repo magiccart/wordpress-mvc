@@ -1,0 +1,78 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:24:08
+ * @@Function:
+ */
+
+$options = $this->getOptions();
+$tabs = $this->getTabs();
+$classer = $this->getData('el_class');
+$visible = isset($options['slides-to-show']) ? 'visible-' . $options['slides-to-show'] : '';
+?>
+<div class="box-portfolio <?php echo esc_attr($visible); ?> <?php echo esc_attr($classer) ?>">
+	<div class="alo-content-<?php echo rand(0,9999999); ?> magicproduct autoplay">
+		<div class="block-portfolio auto-height">
+			<h2 class="project-all"><?php echo __('Our Projects', 'alothemes'); ?></h2>
+			<span class="toggle-tab mobile" style="display:none"><i class="fa fa-bars"></i></span>
+			<div class="block-title-tabs clearfix toggle-content">
+				<ul class="magictabs">
+					<?php 
+						$i = 0;
+						foreach($tabs as $key => $value){
+							$active = "";
+							if(!$i) $active = "activated";
+							    echo '<li class="item loaded '. esc_attr($active) .'" data-type="'.esc_attr($key).'"><span class="title">' . $value  . '</span></li>';
+							    $i++;
+							}                
+						?>
+				</ul>
+			</div>
+			<div class="block-content clearfix">
+				<!--   <div class="row"> -->
+				<div class="content-products content-portfolio" <?php foreach($options as $key => $value){?>
+					data-<?php echo esc_attr($key); ?> = '<?php echo esc_attr($value) ?>'
+					<?php } ?> >
+					<?php
+						foreach($this->_portfolio as $key => $collection){
+						?>
+					<div class="mage-magictabs mc-<?php echo sanitize_html_class($key);?>">
+						<div class="products products-grid">
+							<ol class="products items clearfix" >
+								<?php
+									while($collection->have_posts()): $collection->the_post();
+									?>
+								<li class='item type-product item-portfolio'>
+									<div class="box-content-port">
+										<div class="port-thumb"><a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"> <?php the_post_thumbnail()?></a></div>
+										<div class="links-wrapper">
+											<div class="links">
+												<div class="caption">
+													<div class="port-title"> <?php the_title()?> </div>
+													<div class="sub-text description"> <?php the_excerpt(); ?> </div>
+												</div>
+												<div class="portfolio-icons">
+													<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>" target="_self" class="icon self-link "><span class=hide>hidden</span></a>
+													<?php echo get_simple_likes_button( get_the_ID() ); ?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<?php endwhile;   ?>
+							</ol>
+						</div>
+					</div>
+					<?php } ?>
+				</div>
+				<!--  </div> end row -->
+			</div>
+			<!-- end block-content -->
+		</div>
+	</div>
+</div>

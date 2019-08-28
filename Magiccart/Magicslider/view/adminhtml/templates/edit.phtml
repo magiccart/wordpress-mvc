@@ -1,0 +1,95 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-18 21:17:59
+ * @@Modify Date: 2018-03-09 21:19:32
+ * @@Function:
+ */
+
+$page           = $_GET['page'];  
+$data           = $this->getData();
+$groupName      = isset($data['group']) ? $data['group'] : '' ;
+$content        = isset($data['content']) ? $data['content'] : array() ;
+$message        = isset($data['message']) ? $data['message'] : '';
+$keyGroup       = isset($data['key-group']) ? $data['key-group'] : '';    
+$xhtml= "";
+
+foreach ($content as $key => $value) {
+    $checked = $value['status'] ? 'checked="checked"' : '';
+    $xhtml .= '<li class="grid-item" data-id="'. esc_attr($value['id']) .'">
+                    <a target="_blank" class="mg-ifame" href="' . esc_attr(get_site_url()) . '/wp-admin/upload.php?item='. esc_attr($value['id']) .'">
+                        <img class="img-avatar" src="'. esc_url($value['src']) .'" />
+                    </a>
+                    <div class="image-options">
+                        <div>
+                            <input class="text_area title-img" type="text" name="title['. esc_attr($value['id']) .']" value="'. stripslashes($value['title']) .'" placeholder="' . esc_attr__('Title', 'alothemes') . '">
+                        </div>
+                        <div class="description-block">
+                            <textarea name="im_description['. esc_attr($value['id']) .']" placeholder="' . __('Caption', 'alothemes') . '">'. stripslashes($value['description']) .'</textarea>
+                        </div>
+                        <div class="link-block">
+                            <input class="text_area" type="text" name="img-herf['. esc_attr($value['id']) .']" placeholder="URL" value="'. stripslashes($value['href']) .'">
+                        </div>
+                        <div class="img-show">
+                            <label class="lbl-show">' . __('Hide image', 'alothemes') . ' : </label>
+                            <input class="link_target" '. esc_attr($checked) .' type="checkbox" name="show-img['. esc_attr($value['id']) .']">
+                        </div>
+                        <div class="remove-image-container">
+                            <a class="button remove-image" href="?page=' . esc_attr($page) . '&action=delete&key-group='. esc_attr($keyGroup) .'&group-item='. esc_attr($key) .'">' . __('Remove Image', 'alothemes') . '</a>
+                        </div>
+                    </div>
+                    <input class="src-img" type="text" name="img-src['. esc_attr($value['id']) .']" value="'. esc_attr($value['src']) .'">
+                    <input class="id-img" type="text" name="ids['. esc_attr($value['id']) .']" value="'. esc_attr($value['id']) .'">
+                </li>';
+}  
+?>
+
+<div class="wrap">
+    <?php echo $message; ?>
+    <h1>
+        <?php echo __('New', 'alothemes') ?>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page) . "&block=gird&modul=magicslider&model=collection&view=gird"; ?>"><?php echo __('Grid', 'alothemes') ?></a>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>&action=add<?php echo "&modul=magicslider&view=newslider"; ?>"><?php echo __('New', 'alothemes') ?></a>
+    </h1>
+    <form method="post" name="add-text" action='' id="form-slide" enctype="multipart/form-data">
+                <ul class="menu-slide">
+                    <li class="name-slide">
+                        <label>
+                            <?php echo $groupName; ?>
+                            <i class="edit-name" ></i>
+                        </label>
+                        <input type="text" name="group-slider" value="<?php echo esc_attr($groupName); ?>" />
+                    </li>
+                    <li class="up-img"> 
+                        <input id="upload-btn-slider" type="button" name="upload-btn" value="<?php echo esc_attr__('Add New Image', 'alothemes') ?>" class="button-img-avatar button" data-url="<?php echo esc_attr(get_site_url()) ?>"/>
+                    </li>
+                    <li>
+                        <input type="submit" name="submit" id="mp-btn-change" class="button button-primary" value="<?php echo esc_attr__('Save Changes', 'alothemes') ?>">
+                    </li>
+                </ul>
+                <table cellspacing="0" class="data border" id="magicslider_tabs_content_grid" width="80%" style="height: 40px; background-color: #fff">
+                    <colgroup><col width="1">
+                    <col>
+                    <col width="70">
+                        <col style="display:none;">   
+                    <col width="70">
+                    <col width="70">
+                    </colgroup>
+                    <thead>
+                        <tr class="headings">
+                            <th style="padding-left: 20px"><?php echo __('Image', 'alothemes') ?></th>
+                            <th><?php echo __('Content', 'alothemes') ?></th>       
+                            <th><?php echo __('Exclude', 'alothemes') ?></th>
+                            <th class="last"><?php echo __('Remove', 'alothemes') ?></th>
+                        </tr>
+                    </thead>
+                </table>                
+                <ul id="sortable" class="grid-img sortable">
+                    <?php echo $xhtml; ?>
+                </ul>
+    </form>
+</div>

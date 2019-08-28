@@ -1,0 +1,193 @@
+.nosort {
+    cursor: no-drop;
+}
+img.img-avatar{
+    width: 250px;
+    height: 140px;
+    display: block;
+    margin: 5px 0px;
+    border: 1px dotted #8CCFFA;
+}
+
+.td-slider{
+    width: 250px;
+    display: inline-block;
+    padding: 5px 15px !important;
+}
+.img-info{
+	position: relative;
+}
+.img-info .info-slider{
+	position: absolute;
+    bottom: 0;
+    left: 0px;
+    height: 30px;
+    background: #FFFFFF;
+    width: 100%;
+    line-height: 30px;
+    padding-left: 2px;
+    overflow: hidden;
+}
+.info-slider .name{
+	font-weight: 600;
+    color: #555;
+    font-size: 12px;
+    padding-left: 5px;
+}
+.info-slider:hover{
+	background-color: #252525;
+}
+.info-slider:hover .name{
+	width: 70%;
+    display: inline-block;
+    color: #fff;
+}
+.info-slider .settings,
+.info-slider .edit,
+.info-slider .remove {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    float: right;
+}
+.info-slider .edit:before,
+.info-slider .remove:before  {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #00A0D2;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+}
+
+.info-slider .edit:before{
+	content: "\f040";
+    left: 7px;
+}
+.info-slider .remove:before{
+	content: "\f00d";
+    left: 7px;
+    color: red;
+}
+.info-slider .edit:hover,
+.info-slider .remove:hover{
+	background-color: #484846;
+}
+.grid-img{
+	width: 78%;
+	float: left;
+    display: inline-block;
+    margin: 0px;
+}
+.menu-slide{
+	width: 20%;
+    float: right;
+    margin: 0px;
+    right: 1px;
+    top: 88px;
+}
+.menu-slide li{
+	margin-bottom: 10px ;
+}
+.grid-img div.grid-item{
+	display: inline-block;
+    margin: 2px 0px 2px 0px;
+    width: 100%;
+}
+.grid-img .grid-item img{
+	float: left;
+    margin-right: 35px;
+}
+.grid-img .text_area{
+	margin-bottom: 10px;
+}
+.grid-img .title-img{
+	width: 600px;
+	height: 30px;
+}
+.description-block textarea{
+    width: 600px;
+    margin-bottom: 5px;
+    height: 65px;
+    padding: 5px;
+}
+.link-block input{
+    float: left;
+    width: 350px;
+    margin-right: 20px;
+    height: 30px;
+}
+.img-show{
+	display: inline-block;
+    float: left;
+    margin-right: 20px;
+}
+.img-show .lbl-show{
+	line-height: 30px;
+    margin-right: 2px;
+}
+.name-slide label{
+	width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    background: #23282D;
+    font-weight: bold;
+    color: #fff;
+    cursor: auto;
+    overflow: auto;
+}
+.name-slide input{
+	height: 30px;
+    margin-top: 5px;
+    width: 100%;
+}
+.name-slide input,
+.up-img input[type=text],
+.src-img,
+.id-img
+{
+	display: none;
+}
+
+.name-slide .edit-name {
+    position: relative;
+}
+ i.edit-name{
+ 	width: 40px;
+    height: 35px;
+    display: inline-block;
+    float: right;
+ }
+i.edit-name:hover{
+	background-color: #545354;
+	cursor: pointer;
+}
+.name-slide .edit-name:before {
+    content: "\f040";
+    font-family: FontAwesome;
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    top: 2px;
+    left: 12px;
+
+}
+.up-img input[type=button]{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	 border-radius: 0;
+}
+.up-img input[type=button]:hover{
+	background-color: #00A0D2;
+	font-weight: bold;
+	color: #fff;
+}

@@ -1,0 +1,18 @@
+/*
+ * Magiccart 
+ * @category    Magiccart
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author:Magiccart<team.magiccart@gmail.com> 
+ * @@Create Date: 2016-04-26 11:18:55 
+ * @@Modify Date: 2018-01-18 15:43:14
+ * @@Function:
+ */
+ 
+/* MENU */
+.menu-item .magiccart-field{display: none;}
+.menu-item .magiccart-field.hot_new,
+.menu-item .magiccart-field.category_image{display: block;}
+.menu-item-depth-0 .magiccart-field{display: block;}
+.menu-item-depth-0 .magiccart-field.image{display: none;}
+.menu-item-depth-1 .magiccart-field.image{display: block;}

@@ -1,0 +1,52 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:26:55
+ * @@Function:
+ */
+
+$classer = $this->getData('el_class');
+?>
+<div class="header-top <?php echo esc_attr($classer) ?>">
+    <div class="container">
+        <div class="language-currency top-mobile">
+            <div class="language-link switches">
+				<select id="language-link">
+					<option value="">English</option>
+					<option value="">German</option>
+					<option value="">French</option>
+					<option value="">Spanish</option>
+				</select>
+			</div>
+			<div class="currency-link switches">
+				<select id="currency-link">
+					<option value="">USD</option>
+					<option value="">EUR</option>
+				</select>
+			</div>
+        </div>
+        <div class="support-call top-mobile">
+            <div class="hotline"><span><?php __('Hotline: 9100 1009', 'alothemes') ?></span></div>
+        </div>
+        <div class="account-link top-mobile">
+            <ul>
+                <li class="menu-item"><a class="support" href="<?php echo site_url('support') ?>" title="<?php echo esc_attr__( 'Support', 'alothemes' ) ?>"><span class="pe-7s-support"></span><?php echo esc_html__( 'Support', 'alothemes' ) ?></a></li>
+                <?php
+                if (is_user_logged_in()){
+                    echo '<li class="menu-item "><a class="My-account" href="' . esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) . '" title="' . esc_attr__( 'My Account', 'alothemes' ) . '"><span class="pe-7s-user"></span>' . esc_html__('My Account','alothemes') . '</a></li>';
+                    echo '<li class="menu-item"><a class="nav-top-link" href="'.wp_logout_url().'" title="'.esc_attr__( 'Log Out', 'alothemes' ) . '"><span class="pe-7s-unlock"></span>' . esc_html__('Log Out','alothemes') . '</a></li>';
+                } elseif (!is_user_logged_in()) {
+                    
+                    magiccart_register("<li>", "</li>", true, 'Register');
+                    echo '<li class="menu-item "><a href="'. wp_registration_url() .'" title="'.esc_attr__( 'Register', 'alothemes' ) . '"><span class="pe-7s-user"></span>'.esc_html__('Register','alothemes') . '</a></li>';
+                    echo '<li class="menu-item"><a href="' . esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) ) . '" title="' . esc_attr__('Login','alothemes') . '">' . esc_html__('Login','alothemes').'</a></li>';
+                }?>
+            </ul>
+         </div><!-- End .account-link -->
+     </div> 
+</div>

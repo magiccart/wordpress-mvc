@@ -1,0 +1,84 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-03 23:09:57
+ * @@Modify Date: 2018-06-13 23:37:38
+ * @@Function:
+ */
+ 
+$options = $this->getOptions(); 
+?>
+<div class="box-products box-content product-type">
+    <div class="alo-content-<?php echo rand(0,9999999); ?> magicproduct autoplay">
+        <div class="block-products auto-height">
+            <div class="block-title-tabs clearfix">
+				<?php 
+					echo '<h3 class="title">' .  $this->get_type_name($this->getData('product_activated')) . '</h3>';
+				?>
+				<ul class="magictabs" data-ajax='{"filter" :"<?php echo esc_attr($this->getData('categories')) ?>", "number":"<?php echo esc_attr($this->getData('number')) ?>", "cart":"<?php echo esc_attr($this->getData('cart')) ?>", "compare":"<?php echo esc_attr($this->getData('compare')) ?>", "wishlist":"<?php echo esc_attr($this->getData('wishlist')) ?>", "review":"<?php echo esc_attr($this->getData('review')) ?>"}'>
+					<?php 
+						$productCollection =  $this->getData('product_collection');
+						$loaded     = " loaded ";
+						if($this->getData('ajax_load')){
+							$loaded     = "";
+						}
+						foreach($productCollection as  $value){
+							$activated  = "";
+							if($value == $this->getData('product_activated')){
+								$activated = " activated loaded";
+							} 
+							echo '<li class="item'. esc_attr($activated) . esc_attr($loaded) .'" data-type="'.
+									esc_attr($value) .'"><span class="title">' . $this->get_type_name($value). '</span></li>';
+						}                
+					?>
+				</ul>
+				<?php 
+					if($this->getData('date') != ""){
+						echo '<h2><i class="fa fa-bolt" aria-hidden="true"></i> HOT DEALS </h2>';
+						echo '<div class="alo-count-down">
+								<span class="icon-clock"></span>
+								<div class="countdown" data-timer="' . esc_attr($this->getData('date')) . '"></div>
+							  </div>';
+					}
+				?>
+			</div> 
+			<div class="ajax_loading" style="display:none" data-url="<?php echo admin_url( 'admin-ajax.php' ); ?>"  data-action="magiccart_products"></div>
+			<div class="block-content clearfix">
+				<?php 
+					if($this->getData('shortcode_left') != "0"){
+						$_shortcode = '[magiccart_shortcode class="Magiccart\\\Cms\\\Block\\\Block"  identifier="' .$this->getData('shortcode_left') . '"]';
+						echo '<div class="banner-featured"><div class="left-category-editor">';
+							do_shortcode($_shortcode);
+						echo '</div></div>';
+					}
+				?>
+				<div class="content-products-featured">
+					<div class="content-products" 
+					<?php foreach($options as $key => $value){?>
+								data-<?php echo esc_attr($key);   ?>  = '<?php echo esc_attr($value) ?>'
+					   <?php } ?> 
+					> 
+						<?php
+							$grid = $this->getTemplateFile('products/grid.phtml'); 
+							foreach($this->_products as $key => $collection){ 
+								include $grid; 
+							}
+						?>
+					</div>
+				</div>
+				<?php 
+					if($this->getData('shortcode_bottom') != "0"){
+						$_shortcode = '[magiccart_shortcode class="Magiccart\\\Cms\\\Block\\\Block"  identifier="' .$this->getData('shortcode_bottom') . '"]';
+						echo '<div class="bottom-category-editor">';
+							 do_shortcode($_shortcode);
+						echo '</div>';
+					}
+				?>
+            </div><!-- block-content -->
+        </div>
+    </div>
+</div><!-- end box-content -->

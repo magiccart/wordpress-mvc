@@ -1,0 +1,77 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-10 20:14:51
+ * @@Modify Date: 2018-06-06 11:15:16
+ * @@Function:
+ */
+
+$data       = $this->getData();   
+$message    = isset($data['error']) ? $data['error'] : '';
+$name       = isset($data['name']) ? $data['name'] : '' ;
+$brand      = isset($data['brand']) ? $data['brand'] : '' ;
+$url        = isset($data['url']) ? $data['url'] : '' ;
+$img        = isset($data['img']) ? $data['img'] : '';
+$page       = $_GET['page'];
+?>
+
+<div class="wrap">
+    <h1>
+        <?php echo __('Add New', 'alothemes') ?>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>"><?php echo __('List', 'alothemes') ?></a>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>&action=add"><?php echo __('New', 'alothemes') ?></a>
+    </h1>
+    <?php echo $message; ?>
+     
+    <form method="post" name="add-text" class="form" action='' enctype="multipart/form-data">
+         <table class="form-table">
+            <tbody>
+                <tr>
+                    <th><label><?php echo __('Name', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+						<input type="text" name="name" value="<?php echo esc_attr($name); ?>" style="width: 800px;" />
+					</td>
+                </tr>
+                <tr>
+                    <th><label> <?php echo __('Url', 'alothemes') ?> : </label></th>
+                    <td>
+						<input type="text" name="url" value="<?php echo esc_attr($url); ?>" style="width: 800px;" />
+					</td>
+                </tr>
+                <tr>
+                    <th><label><?php echo __('Brand', 'alothemes') ?> : </label></th>
+                    <td>
+                        <select id="slt-brand" name="brand">
+                            <?php
+                                $attribute = 'pa_' . SHOPBRAND;
+                                $terms = get_terms(
+                                    $attribute,  
+                                    array(
+                                    'hide_empty' => false,
+                                ) );
+                                echo '<option value=""></option>';
+                                foreach ( $terms as $term ) {
+                                    $selected = ($brand == $term->slug) ? 'selected="selected"' : '';
+                                    echo '<option value="'. $term->slug .'" ' . $selected . '>' . $term->name . '</option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><?php echo __('Image', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+						<input type="text"  id="image_url" name="img" size="30" style="width:270px;" value="<?php echo esc_attr($img);?>"  />
+						<img class="image-preview" src="<?php echo esc_url($img); ?>" />
+		                <input id="upload-btn" type="button" name="upload-btn" value="<?php echo esc_attr__('Select Image', 'alothemes') ?>" class="img-upload-btn button" />
+		        	</td>
+                </tr>
+            </tbody>
+       </table>
+        <input type="submit" name="submit" id="mp-btn-change" class="button button-primary" value="<?php echo esc_attr__('Save', 'alothemes') ?>">
+    </form>
+</div>

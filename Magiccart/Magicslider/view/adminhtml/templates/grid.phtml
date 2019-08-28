@@ -1,0 +1,50 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-18 21:15:21
+ * @@Modify Date: 2018-03-09 21:08:59
+ * @@Function:
+ */ 
+
+$page   = $_GET['page'];  
+$xhtml  = '';
+foreach ($this->_items  as $key => $value) {
+    $avatar = isset($value['avatar'] ) ? $value['avatar']  : '';
+    $xhtml .= '<td class="td-slider">
+                    <div class="img-info">
+                        <a href="?page=' . esc_attr($page) . '&action=edit&group='. esc_attr($key) .'">
+                            <img class="img-avatar" src="'. $avatar .'" />
+                        </a>
+                        <div class="info-slider">
+                            <span class="name"><b> ('. $value['total'] .')</b> '. $value['name'] .'</span>
+
+                            <a href="?page=' . esc_attr($page) . '&action=delete&group='. esc_attr($key) .'">
+                                <i class="remove"></i>
+                            </a>
+                            <a href="?page=' . esc_attr($page) . '&action=edit&group='. esc_attr($key) .'">
+                                <i class="edit"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>';
+}
+?>
+<div class='wrap'>
+    <h1>
+        <?php echo __('Magiccart Slider', 'alothemes') ?>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>&action=add<?php echo "&modul=magicslider&view=newslider"; ?>"><?php echo __('New') ?></a>
+    </h1>
+    <form method="post" name="add-text" action='' enctype="multipart/form-data">
+         <table class="form-table">
+            <tbody>
+                <tr>
+                    <?php echo $xhtml; ?>
+                </tr>
+            </tbody>
+       </table>
+    </form>
+</div>

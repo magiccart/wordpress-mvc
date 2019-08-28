@@ -1,0 +1,40 @@
+<?php 
+	$options = $this->getOptions();
+	$selector = 'alo-content-'.rand(0,999999999);
+?>
+<div class="box-brand">
+    <div class="<?php echo esc_attr($selector) ?>">
+    	<div class="shopbrand" <?php foreach($options as $key => $value){?>
+                                               data-<?php echo esc_attr($key); ?>='<?php echo esc_attr($value); ?>'
+                                       <?php } ?> >
+    				<?php 
+                         foreach($this->_brands as  $value){
+                         	$type 	= substr($value['attr-type'], 3);
+                         	$term 	= $value['term'];
+                         	$url 	= '#';
+                         	if(trim($value['url']) != ""){
+                         		$url = $value['url'];
+                         	}else if($term != -1){
+								/*
+                         		$objTerm = get_terms(array(
+    							    'taxonomy' => $value['attr-type'],
+    							    'slug' => $term,
+    							));
+                         		$url = get_term_link($term, $value['attr-type']);
+								*/
+                         	}
+                         	
+                     		echo '<div class="item type-product"><div class="img-brand"><a href="'. esc_url($url) .'"><img src="' . esc_url($value['img']) . '" alt="' . esc_attr($value['name']) . '" /></a></div></div>';
+                         }
+                    ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	(function ($) {
+		var shopbrand  = $('.<?php echo $selector ?> .shopbrand');
+		if(shopbrand.length) $('head').append(magicproduct(shopbrand, '.item'));
+    })(jQuery);
+});
+</script>

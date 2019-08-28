@@ -1,0 +1,52 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-24 11:52:57
+ * @@Modify Date: 2017-09-13 17:11:18
+ * @@Function:
+ */
+
+namespace Magiccart\Shopbrand\Block\Adminhtml\Brand;
+
+use Magiccart\Core\Block\Adminhtml\ListTable as Table;
+use Magiccart\Shopbrand\Model\Brand\Collection;
+	
+class ListTable extends  Table{
+
+    public function __construct(){
+
+    	$collection        = new Collection();
+        $this->items       = $collection->getBrands();
+        $this->total_items = $collection->totalBrands();
+
+        parent::__construct();
+    }
+    
+    /* return columns header */
+    public function get_columns(){
+        $columnHeader = array(
+            'stt'           => 'STT',
+            'name'          => 'Name',
+        	'attributes'    => 'Attributes',
+        	'term'    		=> 'Term',
+            'image'    		=> 'Image',
+            'published'     => 'Published',
+            'edit'          => 'Edit',
+            'action'        => 'Action',
+        );
+
+        return $columnHeader;
+    }   
+
+    public function column_attributes($item)
+    {
+        if($item['attributes'] == -1) return " ";
+    	$attribute = ucfirst(substr($item['attributes'], 3));
+    	return $attribute;
+    }
+
+}

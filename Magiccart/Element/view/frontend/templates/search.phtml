@@ -1,0 +1,71 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-10-27 15:45:34
+ * @@Modify Date: 2018-05-17 10:48:33
+ * @@Function:
+ */
+
+$placeholder    = __('Search products', 'alothemes');
+$categorysearch = defined('MAGICCART') ? true : false;
+?>
+<div class="toggle-tab-mobile search-dropdown">
+    <span class="toggle-tab mobile" style="display:none"><span class="fa fa-search icon"></span></span>
+    <div class="toggle-content clearfix <?php echo $categorysearch ? 'categorysearch' : ''?>">
+        <form class="form-search" id="search_mini_form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+            <div class="field-search clearfix">
+                    <?php if($categorysearch) : ?>
+                        <div class="catalogsearch-box">
+                            <span id="select-box-category"><?php echo __('All Categories') ?></span>
+                            <div id="categories-box" style="display:none;">
+                                <input style="display:none;" type="text" name="product_cat" value="" id="qsearch">
+                                <ul class="cat-list dd-container" id="cat">
+                                    <li data-s="0" ><?php echo __('All Categories', 'alothemes'); ?></li>
+                                    <?php 
+                                        foreach ($this->get_categories(0) as $value => $label){
+                                            echo '<li data-s="'. esc_attr($value). '" >' . $label . '</li>';
+                                        }
+                                    ?>
+                                </ul>
+                            </div>                        
+                        </div>
+                        <script type="text/javascript">
+                            document.addEventListener("DOMContentLoaded", function() {
+                              var qsearch, select, ul, li, a, i;
+                              qsearch = document.getElementById("qsearch");
+                              select = document.getElementById("select-box-category");
+                              ul = document.getElementById("categories-box");
+                              document.querySelector('body').addEventListener("click", function(){
+                                  ul.style.display = 'none';
+                              });
+                              select.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (ul.style.display === 'none') {
+                                    ul.style.display = 'block';
+                                } else {
+                                    ul.style.display = 'none';
+                                }
+                              });
+                              li = ul.getElementsByTagName("li");
+                              for (i = 0; i < li.length; i++) {
+                                a = li[i];
+                                a.addEventListener("click", function(){
+                                    qsearch.value = this.getAttribute("data-s");
+                                    select.innerHTML = this.innerHTML;
+                                });
+                              }
+                            });
+                        </script>
+
+                    <?php endif; ?>
+                    <input type="hidden" name="post_type" value="product" />
+                    <input id="search" class="input-text" name="s" type="text" placeholder="<?php echo esc_attr($placeholder); ?>"/>
+            </div>
+            <button type="submit"></button>
+        </form>
+    </div>
+</div>

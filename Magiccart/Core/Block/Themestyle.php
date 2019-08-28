@@ -1,0 +1,151 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-11-29 11:09:31
+ * @@Modify Date: 2018-03-12 15:52:37
+ * @@Function:
+ */
+ 
+namespace Magiccart\Core\Block;
+
+// use Magiccart\Core\Block\Template;
+use Magiccart\Core\Model\System\Theme\Option;
+
+class Themestyle {
+
+	public 	$_objOptions;
+
+    public function __construct(){
+   		// parrent::__construct();
+   		$this->_objOptions = new Option();
+		if (!file_exists( $this->css_path() ) || isset($_POST['save']) || $this->change_theme_option() || $this->choose_theme_option() ) { 
+			$this->makecss(); 
+		}
+		if(!is_admin()) add_action('wp_head', array($this, 'theme_custom_css_head'), 99999);
+    }
+
+    public function change_theme_option(){
+    	return (isset($_GET['page']) && $_GET['page'] == 'magiccart_options' ) ? true : false;
+    }
+
+    public function choose_theme_option(){
+    	return (isset($_GET['opt']) && !is_admin()) ? true : false;
+    }
+    public function current_theme_option(){
+		if(!is_admin()){
+			if(isset($_GET['opt'])) return sanitize_text_field($_GET["opt"]);
+			if(isset($_SESSION["theme_options"])) return $_SESSION["theme_options"];
+		}
+    	return get_option($this->_objOptions->theme_option, '');
+    }
+
+	// Generate basedir and baseurl
+	public function plugin_basedir() {	
+		$upload_dir = wp_upload_dir(); 
+		$plugin_basedir = $upload_dir['basedir']; 
+		return $plugin_basedir; 
+	}
+	public function plugin_url() {	
+		$upload_dir = wp_upload_dir(); 
+		$plugin_url = set_url_scheme($upload_dir['baseurl']); 
+		return $plugin_url; 
+	}
+
+	// Generate my_style_id url:
+	public function my_style_id() { 
+		$blog_id = get_current_blog_id();
+		$name  = $this->current_theme_option();
+		$cssid = ( $blog_id > "1" ) ? $cssid = "_id-".$blog_id : $cssid = '';
+		$name  .= $cssid;
+		$custom_style = "/theme_custom_css/$name" . ".css"; 
+		return $custom_style; 
+	}
+
+	// Generate css url and css path
+	public function css_url() { 
+		$css_url = $this->plugin_url(). $this->my_style_id();	
+		return $css_url; 
+	}
+
+	public function css_path() { 
+		$css_path = $this->plugin_basedir(). $this->my_style_id(); 
+		return $css_path; 
+	}
+
+	// make my_style.css and write write css code!
+	public function getdata() {
+		$themeoption = $this->current_theme_option();
+	    $themecfg = get_option($themeoption);
+	    $styles = '';
+	    if(isset($themecfg['header'])){
+            $headerName = $themecfg['header'];
+            if($headerName){
+            	$header = get_page_by_path( $headerName, OBJECT, 'header' );
+            	if($header){
+	            	$headerId = $header->ID;
+	                $header_skin = get_post_meta( $headerId, 'header_skin', true );
+	                $shortcodes_css = get_post_meta( $headerId, '_wpb_shortcodes_custom_css', true );
+	                wp_reset_postdata();  
+	                $styles .= $shortcodes_css . $header_skin;
+            	}
+            }
+        }
+	    if(isset($themecfg['footer'])){
+            $footerName = $themecfg['footer'];
+            if($footerName){
+            	$footer = get_page_by_path( $footerName, OBJECT, 'footer' );
+            	if($footer){
+            		$footerId = $footer->ID;
+	                $footer_skin = get_post_meta( $footerId, 'footer_skin', true );
+	                $shortcodes_css = get_post_meta( $footerId, '_wpb_shortcodes_custom_css', true );
+	                wp_reset_postdata();  
+	                $styles .= $shortcodes_css . $footer_skin;            		
+            	}
+            }
+        }
+        $styles .= "\n";
+	    if(isset($themecfg['color'])){
+	        foreach ($themecfg['color'] as $options) {
+	            foreach ($options as $value) {
+	                $styles .= htmlspecialchars_decode($value['selector']) .'{';
+	                    $styles .= $value['color']      ? 'color:' .$value['color']. ';'                    : '';
+	                    $styles .= $value['background']     ? ' background-color:' .$value['background']. ';'   : '';
+	                    $styles .= $value['border']         ? ' border-color:' .$value['border']. ';'           : '';
+	                $styles .= '}';
+	            }
+	        }
+	    }
+	    $styles .= $themecfg['custom_css'];
+	    $getdata = strip_tags($styles); 
+		return $getdata; 
+	}
+
+	// Write in source!
+	public function theme_custom_css_head()
+	{
+		$data = $this->getdata();
+		if (!empty($data))
+		{
+			echo "\n<!-- Theme Custom CSS -->\n<link rel='stylesheet' id='theme_custom_stylesheet' href='". $this->css_url() ."?".@filemtime( $this->css_path() )."' type='text/css' media='all' />\n<!-- Theme Custom CSS -->\n";
+		}
+	}
+
+	// Make css file
+	public function makecss()
+	{
+		try {
+			@mkdir(dirname($this->css_path()), 0777, true);
+			$makecss = file_put_contents( $this->css_path(), "/******* Do not edit this file *******/\n/*\Theme Custom CSS - by nguyen@dvn.com https://alothemes.com/\n/*\nSaved: ".date("M d Y | h:i:s (a)",current_time('timestamp'))."\n/*\n/******* Do not edit this file *******/\n\n" . $this->getdata());
+
+		    } catch(Exception $e) {
+		        echo $e->getMessage();
+		    }
+
+		return $makecss;
+	}
+
+}

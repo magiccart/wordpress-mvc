@@ -1,0 +1,145 @@
+<table class="form-list" cellspacing="0">
+    <tbody>
+        <tr class="alodesign" id="row_alodesign_$_htmlId">
+            <td class="value">
+                <div class="grid" id="grid_$_htmlId">
+                    <table cellpadding="0" cellspacing="0" class="border">
+                        <tbody>
+                            <tr class="headings" id="headings$_htmlId">
+                                <th>Title</th>
+                                <th class="$readonly">Selector</th>
+                                <th>Color :</th>
+                                <th>background-color :</th>
+                                <th>border-color :</th>
+                                <th colspan="2"></th>
+                            </tr>
+                            <tr id="addRow$_htmlId">
+                                <td colspan="5"></td>
+                                <td colspan="2">
+                                    <button style="" onclick="" class="scalable add $readonly" type="button" id="addToEndBtn$_htmlId">
+                                        <span><span><span>Add Config Color</span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <input type="hidden" name="$_name [__empty]" value="" /> -->
+                </div>
+                <div id="empty$_htmlId">
+                    <button style="" onclick="" class="scalable add" type="button" id="emptyAddBtn$_htmlId">
+                        <span><span><span>Add Config Color</span></span></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+//<![CDATA[
+jQuery( document ).ready(function($) {
+// create row creator
+    arrayRow$_htmlId = {
+    template : function(data)
+    {
+        return '<tr id="' + data._id + '">'
+            +'<td>'
+                +'<input type="text" name="$_name' + data._id + '][title]" value="' + data.title + '"  class="title $readonly" style="width:150px"/>'
+            +'<\/td>'
+            +'<td class="$readonly">'
+                +'<input type="text" name="$_name' + data._id + '][selector]" value="' + data.selector + '"  class="selector" style="width:150px;"/>'
+            +'<\/td>'
+            +'<td>'
+                +'<input type="text" name="$_name' + data._id + '][color]" value="' + data.color + '"  class="alo-color" style="width:116px"/>'
+            +'<\/td>'
+            +'<td>'
+                +'<input type="text" name="$_name' + data._id + '][background]" value="' + data.background + '"  class="alo-color" style="width:116px"/>'
+            +'<\/td>'
+            +'<td>'
+                +'<input type="text" name="$_name' + data._id + '][border]" value="' + data.border + '"  class="alo-color" style="width:116px"/>'
+            +'<\/td>'
+            +'<td><button onclick="" class="scalable add $readonly" type="button" id="addAfterBtn' + data._id + '"><span><span><span>Add after<\/span><\/span><\/span><\/button><\/td>'
+            +'<td><button onclick="arrayRow$_htmlId.del(\'' + data._id + '\')" class="scalable delete $readonly" type="button"><span><span><span>Delete<\/span><\/span><\/span><\/button><\/td>'
+        +'<\/tr>';    
+    },
+
+    rowsCount : 0,
+
+    add : function(templateData, insertAfterId)
+    {
+        // generate default template data
+        if ('' == templateData) {
+            var d = new Date();
+            var templateData = {
+                title : '',
+                selector : '',
+                color : '',
+                background : '',
+                border : '',
+                _id : '_' + d.getTime() + '_' + d.getMilliseconds()
+            };
+        }
+
+        // insert before last row
+        if ('' == insertAfterId) {
+            $(this.template(templateData)).insertBefore('#addRow$_htmlId');
+        }
+        // insert after specified row
+        else {
+            $(this.template(templateData)).insertAfter('#'+insertAfterId);
+        }
+
+        $( "#addAfterBtn"+  templateData._id).on( "click", this.add.bind(this, '', templateData._id));
+
+        // Add color ColorPicker
+        this.rowsCount += 1;
+        var rowcolor = $("#grid_$_htmlId .alo-color").not(".mColorPicker");
+        var rowcolor = $("#grid_$_htmlId .alo-color").not(".mColorPicker");
+        var title =  $(rowcolor).parent().parent().find(".title");
+        if(title.hasClass("alo-readonly")){
+           title.parent().append('<p style="width: 200px; padding-left:10px;">' + title.val() + '</p>');
+            rowcolor.attr("data-hex", true).width("178px").mColorPicker();
+        } else {
+            rowcolor.attr("data-hex", true).width("100px").mColorPicker();
+        }
+        
+        // End add color ColorPicker
+    },
+
+    del : function(rowId)
+    {
+        $('#'+rowId).remove();
+        this.rowsCount -= 1;
+        if (0 == this.rowsCount) {
+            this.showButtonOnly();
+        }
+    },
+
+    showButtonOnly : function()
+    {
+        $('#grid_$_htmlId').hide();
+        $('#empty$_htmlId').show();
+    }
+}
+
+// bind add action to "Add" button in last row
+$( "#addToEndBtn$_htmlId" ).on( "click", arrayRow$_htmlId.add.bind(arrayRow$_htmlId, '', ''));
+
+// add existing rows
+$addscript
+// initialize standalone button
+$('#empty$_htmlId').hide();
+
+$( "#emptyAddBtn$_htmlId" ).on( "click", function () {
+    $('#grid_$_htmlId').show();
+    $('#empty$_htmlId').hide();
+    arrayRow$_htmlId.add('', '');
+});
+// if no rows, hide grid and show button only
+
+// toggle the grid, if element is disabled (depending on scope)
+});
+//]]>
+</script>
+

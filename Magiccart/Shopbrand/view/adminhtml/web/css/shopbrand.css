@@ -1,0 +1,62 @@
+.form img{
+    width: 100%;
+    height: 110px;
+    display: block;
+    margin: 5px 0px;
+    border: 1px dotted #8CCFFA;
+    max-width: 270px;
+}
+.magiccart-grid th{
+    font-weight: bold;
+    text-align: center;
+    background: #2A80B9;
+    color: #fff !important;
+}
+.magiccart-grid tr{
+    text-align: center;
+}
+.magiccart-grid .publish,
+.magiccart-grid .unpublish,
+.magiccart-grid .del-action {
+    position: relative;
+}
+ 
+.magiccart-grid .publish:before,
+.magiccart-grid .unpublish:before,
+.magiccart-grid .del-action:before {
+   	font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+   	font-size: 25px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    
+}
+.magiccart-grid .publish:before{
+	 content: "\f06e";
+	 color: #2A80B9;
+     left: 30px;
+}
+.magiccart-grid .unpublish:before{
+	 content: "\f070";
+	color: #8CCFFA;
+    left: 30px;
+}
+.magiccart-grid .del-action:before{
+	 content: "\f05c";
+	 color: #FF4050;
+     left: 20px;
+	 display:block;
+}
+.magiccart-grid td.column-image{
+    padding: 8px 10px 0px 10px;
+}
+.magiccart-grid .column-action{
+    width: 6%;
+}
+.magiccart-grid .column-published{
+    width: 8%;
+}
+

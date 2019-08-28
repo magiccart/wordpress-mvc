@@ -1,0 +1,41 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:14:29
+ * @@Function:
+ */
+
+$depth          = $this->getData('depth');
+$classer        = $this->getData('el_class');
+$placeholder    = $this->getData('placeholder') ? $this->getData('placeholder') : __('Search products', 'alothemes');
+$categorysearch = $this->getData('categorysearch');
+?>
+<div class="toggle-tab-mobile search-dropdown">
+    <span class="toggle-tab mobile" style="display:none"><i class="fa fa-search icons"></i></span>
+    <div class="toggle-content clearfix <?php echo $categorysearch ? 'categorysearch' : ''?>">
+        <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+            <div class="field-search clearfix">
+                <div class="control">
+                    <input type="hidden" name="post_type" value="product" />
+                    <input name="s" type="text" placeholder="<?php  echo esc_attr($placeholder); ?>"/>
+                    <?php if($categorysearch) : ?>
+                        <select name="product_cat">
+                            <option value=""><?php echo __('All Categories', 'alothemes'); ?></option>
+                            <?php 
+                                foreach ($this->get_categories(0) as $key => $value){
+                                    echo '<option value="' . esc_attr($key) . '">' . $value . '</option>';
+                                }
+                            ?>
+                        </select>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <button type="submit"></button>
+        </form>
+    </div>
+</div>

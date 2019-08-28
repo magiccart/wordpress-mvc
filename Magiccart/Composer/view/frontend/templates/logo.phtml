@@ -1,0 +1,22 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:13:37
+ * @@Function:
+ */
+
+$logo = $this->getData('logo');
+if($logo){
+	$img = wp_get_attachment_image_src( $logo ,"full");
+	$logo = $img[0];
+}
+$classer = $this->getData('el_class');
+?>
+<div class='site-branding <?php echo esc_attr($classer) ?>'>
+    <a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url($logo); ?>" title="<?php echo get_bloginfo('description'); ?>" alt="<?php echo get_bloginfo('description'); ?>" /></a>
+</div>

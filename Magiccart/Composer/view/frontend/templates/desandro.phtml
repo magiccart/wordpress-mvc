@@ -1,0 +1,109 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:23:41
+ * @@Function:
+ */
+$classer = $this->getData('el_class');
+?>
+<div class="post-masonry <?php echo esc_attr($classer) ?>">
+	<ol class="grid list-style-none" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 20 }'>
+		<?php
+			$i = 0;
+			while($this->_portfolio->have_posts()): $this->_portfolio->the_post();
+			if(!$i){
+				$clss = "grid-item";
+			 	$i++;
+			}else if($i == 1){
+				$clss = "grid-item grid-item--width2";
+				$i++;
+			}else if($i == 2){
+				$clss = "grid-item grid-item--height2";
+				$i = 0;
+			}
+			?>
+		<li class="box-portfolio">
+			<div class='<?php echo esc_attr($clss); ?>'>
+				<div class="box-content-port">
+					<div class="port-thumb"><a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"> <?php the_post_thumbnail()?></a></div>
+					<div class="links-wrapper">
+						<div class="links">
+							<div class="caption">
+								<div class="port-title"> <?php the_title()?> </div>
+								<div class="sub-text description"> <?php the_excerpt(); ?> </div>
+							</div>
+							<div class="portfolio-icons">
+								<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>" target="_self" class="icon self-link "><span class=hide>hidden</span></a>
+								<?php echo get_simple_likes_button( get_the_ID() ); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<?php endwhile;   ?>
+	</ol>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			(function ($) {
+			   	$('.grid').masonry({
+				  	// options...
+				  	itemSelector: '.grid-item',
+				  	//columnWidth: 400,
+				});
+		  	})(jQuery);
+		});
+	</script>
+	<ol class="grid list-style-none" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 20 }'>
+		<?php
+			$i = 0;
+			while($this->_portfolio->have_posts()): $this->_portfolio->the_post();
+			if(!$i){
+				$clss = "grid-item";
+				$i++;
+			}else if($i == 1){
+				$clss = "grid-item grid-item--width2";
+				$i++;
+			}else if($i == 2){
+				$clss = "grid-item grid-item--height2";
+				$i = 0;
+			}
+			?>
+		<li class="box-portfolio">
+			<div class='<?php echo esc_attr($clss); ?>'>
+				<div class="box-content-port">
+					<div class="port-thumb"><a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"> <?php the_post_thumbnail()?></a></div>
+					<div class="links-wrapper">
+						<div class="links">
+							<div class="caption">
+								<div class="port-title"> <?php the_title()?> </div>
+								<div class="sub-text description"> <?php the_excerpt(); ?> </div>
+							</div>
+							<div class="portfolio-icons">
+								<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>" target="_self" class="icon self-link "><span class=hide>hidden</span></a>
+								<?php echo get_simple_likes_button( get_the_ID() ); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<?php endwhile;   ?>
+	</ol>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		(function ($) {
+		   	$('.grid').masonry({
+				// options...
+				itemSelector: '.grid-item',
+				//columnWidth: 400,
+			});
+		})(jQuery);
+	});
+</script>

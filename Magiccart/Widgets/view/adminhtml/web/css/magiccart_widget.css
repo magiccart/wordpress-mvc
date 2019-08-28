@@ -1,0 +1,78 @@
+@CHARSET "ISO-8859-1";
+
+/* Blogpicture.php */
+
+
+/* Blogposts.php */
+.blog-post, .blog-tags{
+	padding-bottom: 30px;
+}
+.blog-post h3, .widget h3, .blog-tags h3{
+	font-size: 17px;
+    font-family: arial;
+    font-weight: bold;
+    color: #111111;
+    text-transform: uppercase;
+    background: #ebebeb;
+    height: 50px;
+    padding: 0 24px;
+    margin: 0px;
+    line-height: 50px;
+}
+.left-post {display: table-cell;}
+.blog-post  ul li{
+	margin: 15px 20px;
+}
+.blog-post .img-post{
+	display: inline-block;
+    float: left;
+    margin-right: 15px;
+}
+.blog-post .img-post img{
+	width: 70px;
+	height: 70px;
+}
+.blog-post .title a{
+	font-family: arial;
+    font-size: 15px;
+    line-height: 20px;
+    color: #1f1f1f;
+}
+.blog-post span{
+	color: #9f9f9f;
+	font-size: 13px;
+}
+
+/* Magiccart Blog Catagories */
+.blog-category ul{
+	padding: 10px 0px 20px 35px;
+}
+.blog-category ul li{
+	list-style-type: circle;
+	height: 28px;
+    line-height: 28px;
+}
+.blog-category ul li a{
+    text-transform: capitalize;
+	font-size: 15px;
+    font-family: arial;
+    color: #1f1f1f;
+}
+
+/* Tags */
+.magiccart-tag{
+	padding: 15px 20px 0 10px;
+}
+.magiccart-tag a{
+	font-size: 15px !important;
+	line-height: 28px;
+	margin: 0px 10px;
+    font-family: arial;
+    text-transform: capitalize;
+    color: #1f1f1f;
+    text-decoration: none;
+}
+
+
+
+

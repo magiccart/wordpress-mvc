@@ -1,0 +1,41 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-03 20:14:51
+ * @@Modify Date: 2018-03-09 21:44:19
+ * @@Function:
+ */
+
+$data    = $this->getData();   
+$page    = $_GET['page'];  
+$message = isset($data['message']) ? $data['message'] : '';
+?>
+<div class="wrap">
+    <h1>
+        <?php echo __('Add New', 'alothemes') ?>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>"><?php echo __('List', 'alothemes') ?></a>
+        <a class="page-title-action" href="?page=<?php echo esc_attr($page); ?>&action=add"><?php echo __('New', 'alothemes') ?></a>
+    </h1>
+    <?php echo $message; ?>
+    <form method="post" name="add-text" action='' enctype="multipart/form-data">
+         <table class="form-table">
+            <tbody>
+                <tr>
+                    <th><label><?php echo __('Title', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <input type="text" name="title" class="regular-text" style="width: 500px;" value="<?php echo esc_attr($data['title']) ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><?php echo __('Content', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td><?php wp_editor(wp_kses_post($data['content']), 'content') ?></td>
+                </tr>
+            </tbody>
+       </table>
+        <input type="submit" name="submit" id="mp-btn-change" class="button button-primary" value="<?php echo esc_attr__('Save Change', 'alothemes') ?>">
+    </form>
+</div>

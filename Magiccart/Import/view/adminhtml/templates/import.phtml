@@ -1,0 +1,48 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2018-06-11 11:38:58
+ * @@Modify Date: 2018-06-11 11:41:46
+ * @@Function:
+ */
+?>
+<div class='wrap'>
+    <h1><?php echo __('Magiccart Import', 'alothemes') ?></h1>
+    <?php echo $this->getData('message'); ?>
+    <form method="post" action='' enctype="multipart/form-data">
+         <table class="form-table">
+            <tbody>
+                <tr>
+                    <th><label><?php echo __('Select theme', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <select name="theme">
+                            <?php
+                                $themes = $this->getData('theme');
+                                foreach ($themes as  $theme) {
+                                    echo '<option value="'. esc_attr($theme['label']) .'"> '. $theme['value'] .' </option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><?php echo __('Overwrite Posts or Pages if exist', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <input name="overwrite" checked type="checkbox" value="1" />
+                    </td>
+                </tr>
+<!--                 <tr>
+                    <th><label><?php echo __('Activate', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <input name="activate" type="checkbox" value="1" />
+                    </td>
+                </tr> -->
+            </tbody>
+       </table>
+       <input type="submit" name="submit" id="mp-btn-change" class="button button-primary" value="<?php echo esc_attr__('Import', 'alothemes') ?>">
+    </form>
+</div>

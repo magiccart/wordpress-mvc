@@ -1,0 +1,102 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2018-06-11 11:38:58
+ * @@Modify Date: 2018-06-11 11:42:14
+ * @@Function:
+ */
+?>
+<div class='wrap'>
+    <h1><?php echo __('Magiccart Export', 'alothemes') ?></h1>
+    <?php echo $this->getData('message'); ?>
+    <form method="post" action='' enctype="multipart/form-data">
+         <table class="form-table">
+            <tbody>
+                <tr style="display: none;">
+                    <th><label><?php echo __('Select', 'alothemes') ?> <span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <input name="action" checked type="text" value="<?php echo isset($_GET['action']) ?  esc_attr($_GET['action']) : '' ?>" />
+					</td>
+                </tr>
+<!--                 <tr>
+                    <th><label><?php echo __('Name', 'alothemes') ?> <span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <input name="action" checked type="text" value="" />
+                    </td>
+                </tr> -->
+                <?php 
+                    $wp_option = $this->getData('wp_option');
+                    if($wp_option) :
+                ?>
+                <tr>
+                    <th><label><?php echo __('Data', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <?php foreach ($wp_option as $opt) {
+                            echo '<input name="wp_option[]" checked type="checkbox" value="' . esc_attr($opt) . '" />' . $opt . '<br/>';
+                        }
+                        ?>
+					</td>
+                </tr>
+                <?php 
+                    endif;
+                ?>
+                <tr>
+                    <th><label><?php echo __('Redux', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <select name="redux">
+                            <?php
+                                $reduxOptions = $this->getData('redux');
+                                foreach ($reduxOptions as  $option) {
+                                    echo '<option value="'. esc_attr($option) .'"> '. $option .' </option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <?php if(defined('HEADER_BUILDER') && HEADER_BUILDER) : ?>
+                    <tr>
+                        <th><label><?php echo __('Header', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                        <td>
+                            <select name="header">
+                                <?php
+                                    foreach ($this->getData('header') as  $id => $post_title) {
+                                        echo '<option value="'. esc_attr($id) .'"> '. $post_title .' </option>';
+                                    }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endif ?>
+                <tr>
+                    <th><label><?php echo __('Pages', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <select name="pages[]" multiple>
+                            <?php
+                                foreach (get_pages() as  $page) {
+                                    echo '<option value="'. esc_attr($page->ID) .'"> '. $page->post_title .' </option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><?php echo __('Footer', 'alothemes') ?><span style="color:red;">*</span> : </label></th>
+                    <td>
+                        <select name="footer">
+                            <?php
+                                foreach ($this->getData('footer') as  $id => $post_title) {
+                                    echo '<option value="'. esc_attr($id) .'"> '. $post_title .' </option>';
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+       </table>
+       <input type="submit" name="submit" id="mp-btn-change" class="button button-primary" value="<?php echo esc_attr__('Export', 'alothemes') ?>">
+    </form>
+</div>

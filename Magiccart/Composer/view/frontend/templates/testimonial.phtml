@@ -1,0 +1,73 @@
+<?php
+/**
+ * Magiccart 
+ * @category 	Magiccart 
+ * @copyright 	Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license 	http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2018-06-13 23:38:50
+ * @@Modify Date: 2018-06-13 23:39:08
+ * @@Function:
+ */ 
+	$options  = $this->getOptions();
+	$selector = 'alo-content-'.rand(0,999999999);
+?>
+<div class="<?php echo esc_attr($selector) ?> container">
+	<div class="testimonial clearfix">
+		<div class="block-title-testi">
+			<h3 class="block-title title item">
+				<span><?php echo __('Testimonial ', 'alothemes'); ?></span>
+			</h3>
+			<h3><?php echo __('Happy ', 'alothemes'); ?><span><?php echo __('Customers say... ', 'alothemes'); ?></span></h3>
+		</div>
+		<div class="magictestimonial" <?php foreach($options as $key => $value){?>
+			data-<?php echo esc_attr($key);   ?> = '<?php echo esc_attr($value); ?>'
+			<?php } ?> >
+			<?php 
+				while($this->_testimonial->have_posts()): $this->_testimonial->the_post();
+				    $metaRating 	= get_post_meta(get_the_ID(), 'testimonial-rating', true);
+				    $metaStatus 	= get_post_meta(get_the_ID(), 'testimonial-status', true);
+				         $width        = ($metaRating * 2) * 10;
+				  ?>
+			<div class='item'>
+				<div class="block-content">
+					<?php if($this->getData('avatar')){ ?>
+					<div class="item-testimonial customer"> <?php the_post_thumbnail()?> </div>
+					<?php  } ?>
+					<div class="testimonial_text">
+						<?php if($this->getData('name')){ ?>
+						<p class="item-testimonial name"><?php echo get_post_meta(get_the_ID(), 'testimonial-name', true); ?></p>
+						<?php  } ?>
+						<?php if($this->getData('content')){ ?>
+						<span class="item-testimonial sub-text"> <?php the_excerpt(); ?> </span>
+						<?php  } ?>
+						<?php if($this->getData('company')){ ?>
+						<span class="item-testimonial company"><?php echo get_post_meta(get_the_ID(), 'testimonial-company', true) ?></span>
+						<?php  } ?>
+						<?php if($this->getData('email')){ ?>
+						<span class="item-testimonial email"><?php echo get_post_meta(get_the_ID(), 'testimonial-email', true) ?></span>
+						<?php  } ?>
+						<?php if($this->getData('website')){ ?>
+						<span class="item-testimonial website"><?php echo get_post_meta(get_the_ID(), 'testimonial-website', true) ?></span>
+						<?php  } ?>
+						<?php if($this->getData('rating')){ ?>
+						<div class="star-rating" title="<?php printf( esc_html__('Rated %s out of 5','alothemes'), $metaRating) ?>">
+							<span style="width:<?php echo esc_attr($width) ?>%"><?php printf( esc_html__('<strong class="rating">%s</strong> out of 5','alothemes'), $metaRating) ?></span>
+						</div>
+						<?php  } ?>
+					</div>
+				</div>
+			</div>
+			<?php endwhile;  ?>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		(function ($) {
+			var magictestimonial  = $('.<?php echo $selector ?> .magictestimonial');
+			if(magictestimonial.length) $('head').append(magicproduct(magictestimonial, '.item'));
+	    })(jQuery);
+	});
+</script>
+

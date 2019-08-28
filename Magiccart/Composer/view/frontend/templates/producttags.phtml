@@ -1,0 +1,25 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-17 18:45:34
+ * @@Modify Date: 2018-03-09 22:07:04
+ * @@Function:
+ */
+
+$classer = $this->getData('el_class');
+?>
+<div class="tags header-tag toggle-tab-mobile clearfix <?php echo esc_attr($classer) ?>">  
+	<p class="tite-popular toggle-tab mobile"><?php echo __('Popular Tags : ', 'alothemes'); ?></p>
+	<ul class="toggle-content popular-tags">
+		<?php 
+			$aromacheck = get_terms( 'product_tag') ;
+			foreach($aromacheck as $value){
+				echo '<li><a href="' . get_tag_link($value->term_id) . '"> ' . $value->name . '</a></li>';
+			}
+		?>
+	</ul>
+</div>

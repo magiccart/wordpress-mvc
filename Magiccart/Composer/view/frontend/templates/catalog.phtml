@@ -1,0 +1,87 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-03 23:09:57
+ * @@Modify Date: 2018-06-13 23:37:12
+ * @@Function:
+ */
+
+$options = $this->getOptions();  
+?>
+<div class="box-products box-content catalog-type megashop">
+    <div class="alo-content-<?php echo rand(0,9999999); ?> magicproduct autoplay">
+        <div class="block-products auto-height">
+            <div class="block-title-tabs clearfix">
+                <?php 
+                    echo '<h3 class="category_activated">' . $this->getData('category_activated_name') . '</h3>' ;
+                ?>
+                <span class="toggle-tab mobile" style="display:none"><i class="fa fa-bars"></i></span>
+                <ul class="magictabs toggle-content" data-ajax='{"filter" :"<?php echo esc_attr($this->getData('category_activated_id')) ?>", "number":"<?php echo esc_attr($this->getData('number')) ?>", "cart":"<?php echo esc_attr($this->getData('cart')) ?>", "compare":"<?php echo esc_attr($this->getData('compare')) ?>", "wishlist":"<?php echo esc_attr($this->getData('wishlist')) ?>", "review":"<?php echo esc_attr($this->getData('review')) ?>"}'>
+
+                    <?php 
+                        $loaded     = " loaded ";
+                        if($this->getData('ajax_load')) $loaded = "";
+                        $types = $this->getData('product_collection');
+                        foreach($types as $key => $value){
+                            $activated  = "";
+                            if($key == array_search($this->getData('product_activated'), $types)){
+                                $activated = " activated loaded";
+                            } 
+                            echo  '<li class="item'. esc_attr($activated) . esc_attr($loaded) .'" data-type="'.
+                                    sanitize_html_class($value) .'"><span class="title">' . $this->get_type_name($value)  . '</span></li>';
+                        }    
+
+                        $categories = $this->getData('categoriesName');
+                        if($categories){
+                            foreach($categories as $key => $value){
+                               echo '<li class="item' . $loaded .'" data-type="'.
+                                        sanitize_html_class($key) .'"><span class="title">' . str_replace('_', ' ', $value) . '</span></li>';
+                            } 
+                        }
+                ?>
+                </ul>
+            </div>
+            <div class="block-content catalog clearfix">
+                <!-- <div class="row"> -->
+                        <?php 
+                            if($this->getData('shortcode_left') != "0"){
+                                $_shortcode = '[magiccart_shortcode class="Magiccart\\\Cms\\\Block\\\Block"  identifier="' .$this->getData('shortcode_left') . '"]';
+                                echo '<div class="banner-featured"><div class="left-category-editor">';
+                                    do_shortcode($_shortcode);
+                                echo '</div></div>';
+                            }
+                        ?>
+                    
+                        <div class="ajax_loading" style="display:none" data-url="<?php echo admin_url( 'admin-ajax.php' ); ?>"  data-action="magiccart_catalog"></div>
+                    <div class="content-products-featured">
+                        <div class="content-products" 
+                            <?php foreach($options as $key => $value){?>
+                                       data-<?php echo esc_attr($key); ?> = '<?php echo esc_attr($value) ?>'
+                               <?php } ?> 
+                            > 
+                            <?php
+                                $grid = $this->getTemplateFile('catalog/grid.phtml'); 
+                                foreach($this->_products as $key => $collection){ 
+                                    include $grid; 
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <?php 
+                        if($this->getData('shortcode_bottom') != "0"){
+                            $_shortcode = '[magiccart_shortcode class="Magiccart\\\Cms\\\Block\\\Block"  identifier="' .$this->getData('shortcode_bottom') . '"]';
+                            echo '<div class="bottom-category-editor">';
+                                do_shortcode($_shortcode);
+                            echo '</div>';
+                        }
+                    ?>
+                <!-- </div> --> <!-- end row -->
+            </div><!-- block-content -->
+        </div> 
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-13 18:45:34
+ * @@Modify Date: 2018-03-12 00:14:40
+ * @@Function:
+ */
+
+$options = magiccart_options();
+if( isset($options['logo-image']['url']) ){
+    $logo = '<img src="' . esc_url($options['logo-image']['url']) . '"  alt="' . esc_attr($options['logo_alt']) .'" />';
+} else {
+	$logo = get_bloginfo('sitename');
+}
+
+?>
+<div class="header-logo">
+	<div class="openNav">
+	    <a href="javascript:void(0)" class="open"><?php echo __('Open', 'alothemes') ?></a>
+	</div>
+	<div class='site-branding'>
+	    <a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo get_bloginfo('description'); ?>"><?php echo $logo; ?></a>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+<?php 
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-12 11:29:45
+ * @@Modify Date: 2018-03-12 11:21:54
+ * @@Function:
+ */
+
+
+$menu  = 'menu-vertical';
+$_type = has_nav_menu($menu) ? 'theme_location' : 'menu';
+?>
+<div class="vmagicmenu clearfix">
+    <div class="block-title block-title-vmagicmenu v-title">
+        <strong>
+            <span class="lnr lnr-menu"></span>
+            <span class="vmagicmenu-subtitle"><?php echo __('All Categories', 'alothemes'); ?></span>
+        </strong>
+    </div>
+    <?php
+        $allCategories = '<li class="all-cat" style="display:none;"><span>' . __('All Categories', 'alothemes') . '</span><span style="display: none;">' .__('Close') . '</span></li>';
+        wp_nav_menu(array(
+            $_type    => $menu,
+            'items_wrap'        => '<ul id="%1$s" class="%2$s nav-desktop sticker">%3$s' . $allCategories . '</ul>'
+        ));
+     ?>
+</div>
+<?php
+    $menu  = 'menu-top';
+    $_type = has_nav_menu($menu) ? 'theme_location' : 'menu';
+?>
+<div class="magicmenu clearfix">
+    <?php 
+        wp_nav_menu(array(
+                $_type    => $menu,
+                'items_wrap'        => '<ul id="%1$s" class="%2$s nav-desktop sticker">%3$s</ul>'
+        )); 
+    ?>  
+</div>

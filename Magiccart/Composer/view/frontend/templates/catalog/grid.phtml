@@ -1,0 +1,26 @@
+<?php
+    // $lazy = $this->get_options('lazy-load');
+?>
+<div class="mage-magictabs mc-<?php echo sanitize_html_class($key);?>">
+    <div class="products grid products-grid">
+        <?php 
+            $options            = $this->getData();
+            $args['cart']       = $options['cart'];
+            $args['compare']    = $options['compare'];
+            $args['wishlist']   = $options['wishlist'];
+            $args['review']     = $options['review'];
+            $args['sec']        = 0;
+            if($collection->have_posts() ){
+                echo '<ol class="products items" >';
+                    while ( $collection->have_posts() ) : $collection->the_post();
+                        $args['sec'] += 100;
+                        wc_get_template( 'content-product.php', $args ); 
+                    endwhile; 
+                echo '</ol>';
+            }else{
+                echo '<p class="woocommerce-info">'. __('No products were found matching your selection.', 'alothemes') .'</p>';
+            }
+		?>
+	</div>
+</div>
+

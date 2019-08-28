@@ -1,0 +1,26 @@
+<?php
+/**
+ * Magiccart 
+ * @category    Magiccart 
+ * @copyright   Copyright (c) 2014 Magiccart (http://www.magiccart.net/) 
+ * @license     http://www.magiccart.net/license-agreement.html
+ * @Author: DOng NGuyen<nguyen@dvn.com>
+ * @@Create Date: 2017-08-03 20:14:51
+ * @@Modify Date: 2018-03-09 21:43:18
+ * @@Function:
+ */
+$this->listTable->prepare_items();
+?>
+<div class='wrap'>
+    <h1>
+        <?php echo __('Magiccart Block', 'alothemes') ?>
+        <a class="page-title-action"  href="<?php echo '?page=' . esc_attr($_GET['page']) . '&action=add'; ?>" ><?php echo __('Add New', 'alothemes') ?></a>
+    </h1>
+    <form method='post' action='' name=''>
+        <?php
+            $this->listTable->search_box('Search', 'alothemes-search');
+            $this->listTable->display();
+        ?>
+    </form>
+</div>
+
